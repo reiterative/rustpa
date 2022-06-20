@@ -1,0 +1,58 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "cargo",
+			"command": "build",
+			"problemMatcher": [
+				"$rustc"
+			],
+			"group": "build",
+			"label": "rust: cargo build",
+			"options": {
+				"cwd": "${workspaceFolder}/rustpa-wasm"
+			}
+		},
+		{
+			"type": "npm",
+			"script": "build",
+			"path": "rustpa-www",
+			"group": "build",
+			"problemMatcher": [],
+			"label": "npm: build - rustpa-www",
+			"detail": "webpack --config webpack.config.js"
+		},
+		{
+			"type": "npm",
+			"script": "install",
+			"path": "rustpa-www",
+			"group": "clean",
+			"problemMatcher": [],
+			"label": "npm: install - rustpa-www",
+			"detail": "install dependencies from package"
+		},
+		{
+			"label": "Build",
+			"dependsOn": [
+				"rust: cargo build",
+				"npm: build - rustpa-www"
+			],
+			"dependsOrder": "sequence",
+			"problemMatcher": [],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		},
+		{
+			"type": "npm",
+			"script": "start",
+			"path": "rustpa-www",
+			"group": "test",
+			"isBackground": true,
+			"problemMatcher": [],
+			"label": "npm: start - rustpa-www",
+			"detail": "webpack-dev-server"
+		}
+	]
+}
